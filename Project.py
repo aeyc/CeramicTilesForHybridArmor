@@ -3,7 +3,7 @@ import random
 import math
 EDGE = 20
 X_LIMIT = 360
-Y_LIMIT = 500
+Y_LIMIT = 600
 TOTAL_AREA = 425*650
 window = Tk()
 window.title("Work Place")
@@ -30,12 +30,16 @@ def square_points(x):
     points = (x, y, x, y+EDGE,x+EDGE,y+EDGE,x+EDGE,y)
     return points
 
+def square_area(x):
+    area = 0.0
+    return x*x
 
 count = 0
 used_points = []
 
 appeared=False
-while count < 10:
+remaining_area = TOTAL_AREA
+while count <1000:
     choice = random.randint(0, 2)
     appeared = False
     if choice == 1:
@@ -57,6 +61,7 @@ while count < 10:
             for i in range(x+2*EDGE,x+3*EDGE):
                 for j in range(y+2*EDGE,y+EDGE-1,-1):
                     used_points.append((i,j))
+        remaining_area -= hex_area(EDGE)
     elif choice == 0:
         x = random.randint(0, X_LIMIT)
         y = x
@@ -69,7 +74,8 @@ while count < 10:
             for i in range(x+EDGE,x-1,-1):
                 for j in range(y+EDGE,y-1,-1):
                     used_points.append((i,j))
-    print(used_points)
-    count += 1
+        remaining_area -= square_area(EDGE)
 
+    count += 1
+print(remaining_area)
 window.mainloop()
