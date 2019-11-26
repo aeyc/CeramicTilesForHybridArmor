@@ -31,26 +31,44 @@ def square_points(x):
     return points
 
 
-i = 0
+count = 0
 used_points = []
-while i < 3:
+
+appeared=False
+while count < 3:
     choice = random.randint(0, 2)
+    appeared = False
     if choice == 1:
         x = random.randint(0, X_LIMIT)
         y = random.randint(EDGE, Y_LIMIT)
-        if (x, y) not in used_points:
-            hexagon_points = hex_points(x, y)   # range of hexagon (x>=0, y>=20)
-            canvas.create_polygon(hexagon_points, outline='green', fill='yellow', width=1)
-            used_points.append((x, y))   # used points needs fix
+
+        for i in used_points:
+            if (x,y) == i:
+                appeared = True
+        if not appeared:
+            hexagon_points = hex_points(x, y)  # range of hexagon (x>=0, y>=20)
+            a = canvas.create_polygon(hexagon_points, outline='green', fill='yellow', width=1)
+            for i in range(x+EDGE,x-1,-1):
+                for j in range(y+EDGE,y+EDGE-1,-1):
+                    used_points.append((i,j))
+            for i in range(x+EDGE, x+2*EDGE+1):
+                for j in range(y,y+2*EDGE+1):
+                    used_points.append((i, j))
+            for i in range(x+2*EDGE,x+3*EDGE):
+                for j in range(y+2*EDGE,y+EDGE-1,-1):
+                    used_points.append((i,j))
     elif choice == 0:
         x = random.randint(0, X_LIMIT)
         y = x
-        if (x, y) not in used_points:
+        for i in used_points:
+            if (x,y) == i:
+                appeared = True
+        if not appeared:
             s_points = square_points(x)
-            canvas.create_polygon(s_points, outline="blue", fill="#fb0")
-            used_points.append((x, y))
-    i += 1
-
-
+            b = canvas.create_polygon(s_points, outline="blue", fill="#fb0")
+            for i in range(x+EDGE,x-1,-1):
+                for j in range(y+EDGE,y-1,-1):
+                    used_points.append((i,j))
+    count += 1
 
 window.mainloop()
