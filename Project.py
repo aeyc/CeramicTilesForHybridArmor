@@ -34,48 +34,73 @@ def square_area(x):
     area = 0.0
     return x*x
 
-count = 0
-used_points = []
 
-appeared=False
-remaining_area = TOTAL_AREA
-while count <1000:
-    choice = random.randint(0, 2)
+noOfModels = 0
+model_remaining_areas = []
+model_moves =[]
+model_analytic = []
+while noOfModels <15:
+    count = 0
     appeared = False
-    if choice == 1:
-        x = random.randint(0, X_LIMIT)
-        y = random.randint(EDGE, Y_LIMIT)
+    remaining_area = TOTAL_AREA
+    moves = []
+    used_points = []
+    while count <100:
+        choice = random.randint(0, 2)
+        appeared = False
+        if choice == 1:
+            x = random.randint(0, X_LIMIT)
+            y = random.randint(EDGE, Y_LIMIT)
 
-        for i in used_points:
-            if (x,y) == i:
-                appeared = True
-        if not appeared:
-            hexagon_points = hex_points(x, y)  # range of hexagon (x>=0, y>=20)
-            a = canvas.create_polygon(hexagon_points, outline='green', fill='yellow', width=1)
-            for i in range(x+EDGE,x-1,-1):
-                for j in range(y+EDGE,y+EDGE-1,-1):
-                    used_points.append((i,j))
-            for i in range(x+EDGE, x+2*EDGE+1):
-                for j in range(y,y+2*EDGE+1):
-                    used_points.append((i, j))
-            for i in range(x+2*EDGE,x+3*EDGE):
-                for j in range(y+2*EDGE,y+EDGE-1,-1):
-                    used_points.append((i,j))
-        remaining_area -= hex_area(EDGE)
-    elif choice == 0:
-        x = random.randint(0, X_LIMIT)
-        y = x
-        for i in used_points:
-            if (x,y) == i:
-                appeared = True
-        if not appeared:
-            s_points = square_points(x)
-            b = canvas.create_polygon(s_points, outline="blue", fill="#fb0")
-            for i in range(x+EDGE,x-1,-1):
-                for j in range(y+EDGE,y-1,-1):
-                    used_points.append((i,j))
-        remaining_area -= square_area(EDGE)
+            for i in used_points:
+                if (x,y) == i:
+                    appeared = True
+            if not appeared:
+                hexagon_points = hex_points(x, y)  # range of hexagon (x>=0, y>=20)
+                a = canvas.create_polygon(hexagon_points, outline='green', fill='yellow', width=1)
+                for i in range(x+EDGE,x-1,-1):
+                    for j in range(y+EDGE,y+EDGE-1,-1):
+                        used_points.append((i,j))
+                for i in range(x+EDGE, x+2*EDGE+1):
+                    for j in range(y,y+2*EDGE+1):
+                        used_points.append((i, j))
+                for i in range(x+2*EDGE,x+3*EDGE):
+                    for j in range(y+2*EDGE,y+EDGE-1,-1):
+                        used_points.append((i,j))
+                remaining_area -= hex_area(EDGE)
+                moves.append((count, choice, (x, y)))
+        elif choice == 0:
+            x = random.randint(0, X_LIMIT)
+            y = x
+            for i in used_points:
+                if (x,y) == i:
+                    appeared = True
+            if not appeared:
+                s_points = square_points(x)
+                b = canvas.create_polygon(s_points, outline="blue", fill="#fb0")
+                for i in range(x+EDGE,x-1,-1):
+                    for j in range(y+EDGE,y-1,-1):
+                        used_points.append((i,j))
+                remaining_area -= square_area(EDGE)
+                moves.append((count,choice,(x,y)))
+        count += 1
+    model_remaining_areas.append(remaining_area)
+    model_moves.append(moves)
+    model_analytic.append((remaining_area,moves))
+    noOfModels +=1
+    canvas.delete("all")
 
-    count += 1
-print(remaining_area)
+count = 1
+for i in model_analytic:
+    print(count, "th model:")
+    print("Remaining Area:",i[0])
+    count+=1
+
+sorted_analytic = sorted(model_analytic,key=lambda x: x[0])
+
+count = 1
+for i in sorted_analytic:
+    print(count, "th model:")
+    print("Remaining Area:",i[0])
+    count+=1
 window.mainloop()
