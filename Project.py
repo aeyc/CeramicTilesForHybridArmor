@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import*
 EDGE=20
 window = Tk()
 window.title("Work Place")
