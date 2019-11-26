@@ -105,17 +105,33 @@ for i in sorted_analytic:
     count+=1
 
 best_opt = sorted_analytic[0:5]
+print("Best action: ",best_opt[0])
+print("Less favourable action: ", best_opt[4])
 best_moves = []
 for i in best_opt:
     best_moves.append(i[1])
-print(best_opt)
-print(best_moves)
 
+print("\nBest Moves")
+count = 1
+# (count,choice,(x,y)))
 for i in best_moves:
-    print("i[0]",i[0])
+    print("i[{}]".format(count))
+    print("i: ",i)
+    print("i[0]: ", i[0])
+    print("count = i[0][0]", i[0][0])
+    print("choice = i[0][1]", i[0][1])
+    print("coords = i[0][2]", i[0][2])
+    count +=1
 
-for i in best_moves:
-    print("i[0][0]",i[0][0])
-    print("i[0][1]", i[0][1])
-    print("i[0][2]", i[0][2])
+best2_moves = best_moves[0:2]
+print(len(best2_moves[0]))
+print(len(best2_moves[1]))
+best2_opt_trial = []
+for i in range(len(best2_moves[0])):
+    order = best_moves[0][0]
+    choice = best_moves[0][1]
+    x_coord = (best_moves[0][2][0]+best_moves[1][2][0])/2
+    y_coord = (best_moves[0][2][1] + best_moves[1][2][1])/2
+    best2_opt_trial.append((order,choice, (x_coord,y_coord)))
+print("Best2 opt:",best2_opt_trial)
 #window.mainloop()
