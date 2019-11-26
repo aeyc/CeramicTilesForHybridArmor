@@ -90,11 +90,11 @@ while noOfModels <15:
     noOfModels +=1
     canvas.delete("all")
 
-count = 1
-for i in model_analytic:
-    print(count, "th model:")
-    print("Remaining Area:",i[0])
-    count+=1
+# count = 1
+# for i in model_analytic:
+#    print(count, "th model:")
+#    print("Remaining Area:",i[0])
+#    count+=1
 
 sorted_analytic = sorted(model_analytic,key=lambda x: x[0])
 
@@ -103,4 +103,19 @@ for i in sorted_analytic:
     print(count, "th model:")
     print("Remaining Area:",i[0])
     count+=1
-window.mainloop()
+
+best_opt = sorted_analytic[0:5]
+best_moves = []
+for i in best_opt:
+    best_moves.append(i[1])
+print(best_opt)
+print(best_moves)
+
+for i in best_moves:
+    print("i[0]",i[0])
+
+for i in best_moves:
+    print("i[0][0]",i[0][0])
+    print("i[0][1]", i[0][1])
+    print("i[0][2]", i[0][2])
+#window.mainloop()
