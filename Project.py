@@ -2,8 +2,8 @@ from tkinter import*
 import random
 import math
 EDGE = 20
-X_LIMIT = 100
-Y_LIMIT = 100
+X_LIMIT = 360
+Y_LIMIT = 500
 TOTAL_AREA = 425*650
 window = Tk()
 window.title("Work Place")
@@ -35,7 +35,7 @@ count = 0
 used_points = []
 
 appeared=False
-while count < 3:
+while count < 10:
     choice = random.randint(0, 2)
     appeared = False
     if choice == 1:
@@ -69,6 +69,7 @@ while count < 3:
             for i in range(x+EDGE,x-1,-1):
                 for j in range(y+EDGE,y-1,-1):
                     used_points.append((i,j))
+    print(used_points)
     count += 1
 
 window.mainloop()
