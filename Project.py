@@ -1,5 +1,6 @@
 from tkinter import*
 import random
+import math
 EDGE = 20
 X_LIMIT = 100
 Y_LIMIT = 100
@@ -17,6 +18,10 @@ def hex_points(x, y):
     points = (x+EDGE, y-EDGE, x,y, x+EDGE, y+EDGE, x+2*EDGE,y+EDGE,x+3*EDGE,y,x+2*EDGE,y-EDGE)
     return points
 
+
+def hex_area(x):
+    area = 0.0
+    area =
 
 def square_points(x):
     y = x
@@ -43,5 +48,7 @@ while i < 3:
             canvas.create_polygon(s_points, outline="blue", fill="#fb0")
             used_points.append((x, y))
     i += 1
+
+empty_spaces = TOTAL_AREA
 
 window.mainloop()
