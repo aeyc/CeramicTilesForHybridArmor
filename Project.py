@@ -4,10 +4,10 @@ import math
 EDGE = 20
 X_LIMIT = 100
 Y_LIMIT = 100
-
+TOTAL_AREA = 425*650
 window = Tk()
 window.title("Work Place")
-canvas = Canvas(window, width =425, height=650)
+canvas = Canvas(window, width=425, height=650)
 # frame = Frame(width=500, height=200, bg='blue')
 # canvas = Canvas(frame, bg='white')
 canvas.pack(fill = BOTH, expand = YES)
@@ -21,7 +21,9 @@ def hex_points(x, y):
 
 def hex_area(x):
     area = 0.0
-    area =
+    area = math.sqrt(3)*x*x/4
+    return area
+
 
 def square_points(x):
     y = x
@@ -49,6 +51,6 @@ while i < 3:
             used_points.append((x, y))
     i += 1
 
-empty_spaces = TOTAL_AREA
+
 
 window.mainloop()
