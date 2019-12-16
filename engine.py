@@ -7,7 +7,7 @@ Y_LIMIT = 600
 TOTAL_AREA = 425*650
 
 def hex_points(x, y):
-    points = (x+EDGE, y-EDGE, x,y, x+EDGE, y+EDGE, x+2*EDGE,y+EDGE,x+3*EDGE,y,x+2*EDGE,y-EDGE)
+    points = [(x+EDGE, y-EDGE), (x,y), (x+EDGE, y+EDGE), (x+2*EDGE,y+EDGE),(x+3*EDGE,y),(x+2*EDGE,y-EDGE)]
     return points
 
 
@@ -18,12 +18,11 @@ def hex_area(x):
 
 
 def square_points(x,y):
-    points = (x, y, x, y+EDGE,x+EDGE,y+EDGE,x+EDGE,y)
+    points = [(x, y),( x, y+EDGE),(x+EDGE,y+EDGE),(x+EDGE,y)]
     return points
 
 
 def square_area(x):
-    area = 0.0
     return x*x
 
 
@@ -42,7 +41,7 @@ class GameState:
         self.remaining_area = 0
         self.used_points = []
         self.moves = []
-        self.shape = self.shape_choice()
+        self.coords = self.shape_choice()
 
         pygame.display.update()
 
