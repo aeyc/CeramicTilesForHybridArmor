@@ -1,13 +1,14 @@
 from tkinter import*
 import random
 import math
+import timeit
 EDGE = 20
 X_LIMIT = 360
 Y_LIMIT = 600
 TOTAL_AREA = 425*650
 window = Tk()
 window.title("Work Place")
-canvas = Canvas(window, width=425, height=650)
+canvas = Canvas(window, width=X_LIMIT, height=Y_LIMIT)
 # frame = Frame(width=500, height=200, bg='blue')
 # canvas = Canvas(frame, bg='white')
 canvas.pack(fill = BOTH, expand = YES)
@@ -34,15 +35,17 @@ def square_area(x):
     return x*x
 
 
-count = 0
-appeared = False
-remaining_area = TOTAL_AREA
-moves = []
-used_points = []
-while remaining_area >257000:
+count = 0  # number of iterations of the loop for a single model
+appeared = False  # a controller flag to find whether random coordinate is already used or not
+remaining_area = TOTAL_AREA  # the area which will represent the score variable for reinforcement learning
+Q = []  # later process, Q matrix of the whole models for comparing actions and scores
+moves = []  # keeps the data of the iteration count, shape selection and the coordinate selection
+used_points = []  # keeps the data of used points(coordinates), to avoid overlapping
+start_time = timeit.default_timer()  # timer initialization
+while remaining_area > 100000:
     choice = random.randint(0, 2)
     appeared = False
-    tmp_points = []
+    tmp_points = []  # tmp points stores the randomly selected points and based on the shape, other coordinates that will added to this list
     if choice == 1:
         print("choice 1")
         x = random.randint(0, X_LIMIT)
@@ -126,5 +129,7 @@ while remaining_area >257000:
 #    count+=1
 
 
-
+print(moves)
+elapsed = timeit.default_timer() - start_time
+print(elapsed)
 window.mainloop()
